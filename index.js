@@ -10,9 +10,15 @@ let initials = document.querySelector("#initials");
 let submitInitials = document.querySelector("#submit")
 let userFeedback = document.querySelector("#feedback");
 
+// global variables
+timercount = 100;
+score = 0;
+q = 0;
+
+
 
 //timerfunction
-timercount = 100
+
 let activetime = setInterval(() => {
     timer.textContent = timercount
     timercount = timercount - 1
