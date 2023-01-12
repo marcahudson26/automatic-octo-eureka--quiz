@@ -9,3 +9,15 @@ let finalScore = document.querySelector("#final-score");
 let initials = document.querySelector("#initials");
 let submitInitials = document.querySelector("#submit")
 let userFeedback = document.querySelector("#feedback");
+
+
+//timerfunction
+timercount = 100
+let activetime = setInterval(() => {
+    timer.textContent = timercount
+    timercount = timercount - 1
+    if ( timercount <= -1 ) {
+        clearInterval(activetime);
+        alert("done")
+    }
+}, 1000)
