@@ -6,10 +6,12 @@ let questionAnswers = document.querySelector("#choices");
 let questions = document.querySelector("#questions");
 let questionTitel = document.querySelector("#question-title");
 let endScreen = document.querySelector("#end-screen");
-// let finalScore = document.querySelector("#final-score");
-// let initials = document.querySelector("#initials");
+let finalScore = document.querySelector("#final-score");
+let initials = document.querySelector("#initials");
 let submitInitials = document.querySelector("#submit")
-// let userFeedback = document.querySelector("#feedback");
+let userFeedback = document.querySelector("#feedback");
+let failSound = new Audio("./assets/sfx/incorrect.wav")
+let successSound = new Audio("./assets/sfx/correct.wav")
 
 
 
@@ -63,30 +65,36 @@ startButt.addEventListener("click", () => {
 
 function startQuizz() {
     // resets all global variables
-    timercount = 100;
+    timercount = 10;
     scores = 0;
     q = 0;
     startScreen.className = "hide";
+    localStorage.getItem("finalScores")
+    if (!localStorage.getItem("finalScores")) {
+        localStorage.setItem("finalScores", JSON.stringify([]))
+    }
 
     getNextQuestion()
     //timerfunction
     let activetime = setInterval(() => {
         timer.textContent = timercount
-        timercount = timercount - 1
-        if (timercount <= -1) {
+        if (timercount <= 0) {
+            
             clearInterval(activetime);
-
+            endQuiz()
+            
         }
+        timercount = timercount - 1
     }, 1000)
 
 }
 function getNextQuestion() {
-    if ( questionsArray[q] === undefined){
-        endQuiz ()
+    if (questionsArray[q] === undefined) {
+        endQuiz()
         return
     }
     if (timercount <= 0) {
-        endQuiz ()
+        
         return
     }
     //reset questions state
@@ -101,30 +109,50 @@ function getNextQuestion() {
         button.dataset.indexNumber = i
         button.addEventListener("click", (event) => {
             //check answer
-          
-            if (Number(event.target.dataset.indexNumber) === questionsArray[q].answer){
+
+            if (Number(event.target.dataset.indexNumber) === questionsArray[q].answer) {
                 scores += 5
+                userFeedback.classList.remove("hide")
+                userFeedback.textContent = "correct"
+                successSound.currentTime = 0
+                successSound.play()
+
+                
             } else {
                 timercount -= 10
+                userFeedback.classList.remove("hide")
+                userFeedback.textContent = "Wrong"
+                failSound.currentTime = 0
+                failSound.play()
             }
+
+            setTimeout(()=>{
+                userFeedback.classList.add("hide")
+            }, 1000)
             //next question
             q = q + 1
-           
+
             getNextQuestion()
         })
         questionAnswers.appendChild(button)
-        
+
     });
 }
 
-function endQuiz (){
+function endQuiz() {
     questions.className = "hide"
     endScreen.className = "start"
-    timer.className = "hide"
-    submitInitials.addEventListener("click", () => {
-        
-       
-})
+    finalScore.textContent = scores
+    submitInitials.addEventListener("click", (event) => {
+        let finalScores = JSON.parse(localStorage.getItem("finalScores"))
+        let currentScore = {
+            in: initials.value,
+            score: scores
+        }
+        finalScores.push(currentScore)
+        localStorage.setItem("finalScores", JSON.stringify(finalScores))
+        window.location = "./highscores.html"
+    })
 }
 
 
