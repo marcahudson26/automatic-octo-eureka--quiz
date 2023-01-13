@@ -5,10 +5,10 @@ let startScreen = document.querySelector("#start-screen")
 let questionAnswers = document.querySelector("#choices");
 let questions = document.querySelector("#questions");
 let questionTitel = document.querySelector("#question-title");
-// let endScreen = document.querySelector("#end-screen");
+let endScreen = document.querySelector("#end-screen");
 // let finalScore = document.querySelector("#final-score");
 // let initials = document.querySelector("#initials");
-// let submitInitials = document.querySelector("#submit")
+let submitInitials = document.querySelector("#submit")
 // let userFeedback = document.querySelector("#feedback");
 
 
@@ -27,14 +27,24 @@ let questionsArray = [
     },
     {
         question: "whats the example of a function expresion",
-        answer: 0,
+        answer: 1,
         choises: [
-            "let x = 4",
-            "let 4 = x",
-            "let const 4 = var",
-            "4 = x let",
+            "quiz const = function(answer, question)",
+            "const getRectArea = function(width, height)",
+            "function startQuizz()",
+            "const; getRectArea = function(width, height)",
         ]
-    }
+    },
+    {
+        question: "What is 30/3?",
+        answer: 2,
+        choises: [
+            "NaN",
+            "33",
+            "10",
+            "27",
+        ]
+    },
 ]
 
 // global variables
@@ -71,23 +81,51 @@ function startQuizz() {
 
 }
 function getNextQuestion() {
+    if ( questionsArray[q] === undefined){
+        endQuiz ()
+        return
+    }
     if (timercount <= 0) {
-        console.log("pooooo")
+        endQuiz ()
+        return
     }
     //reset questions state
     questionAnswers.innerHTML = ""
     questions.className = "start"
     // add question to page
     questionTitel.textContent = questionsArray[q].question
-    questionsArray[q].choises.forEach(element => {
-    let button = document.createElement("button")
-    button.textContent = element
-    questionAnswers.appendChild(button)
+
+    questionsArray[q].choises.forEach((element, i) => {
+        let button = document.createElement("button")
+        button.textContent = element
+        button.dataset.indexNumber = i
+        button.addEventListener("click", (event) => {
+            //check answer
+          
+            if (Number(event.target.dataset.indexNumber) === questionsArray[q].answer){
+                scores += 5
+            } else {
+                timercount -= 10
+            }
+            //next question
+            q = q + 1
+           
+            getNextQuestion()
+        })
+        questionAnswers.appendChild(button)
+        
     });
 }
 
-
-
+function endQuiz (){
+    questions.className = "hide"
+    endScreen.className = "start"
+    timer.className = "hide"
+    submitInitials.addEventListener("click", () => {
+        
+       
+})
+}
 
 
 
