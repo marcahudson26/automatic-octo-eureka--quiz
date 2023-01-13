@@ -1,3 +1,4 @@
+// let scores = document.querySelector("#scores")
 let list = document.querySelector("#highscores")
 let clear = document.querySelector("#clear")
 
@@ -11,7 +12,7 @@ function byHighestScore(x, y) {
     }
     return 0
 }
-
+// this sorts the array from storage and puts highest score first
 let finalScores = JSON.parse(localStorage.getItem("finalScores"))
 finalScores.sort(byHighestScore).forEach(element => {
 
@@ -21,6 +22,8 @@ finalScores.sort(byHighestScore).forEach(element => {
     list.appendChild(listName)
 });
 
+
+// this clears the score if the button is presses
 clear.addEventListener("click", (event) => {
     localStorage.clear()
     location.reload();

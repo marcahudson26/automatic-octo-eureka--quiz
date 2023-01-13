@@ -15,7 +15,7 @@ let successSound = new Audio("./assets/sfx/correct.wav")
 
 
 
-
+// array of objects
 let questionsArray = [
     {
         question: "whats the corect way to declare a variable",
@@ -33,7 +33,7 @@ let questionsArray = [
         choises: [
             "quiz const = function(answer, question)",
             "const getRectArea = function(width, height)",
-            "function startQuizz()",
+            "function startQuiz()",
             "const; getRectArea = function(width, height)",
         ]
     },
@@ -58,12 +58,12 @@ let q = 0;
 
 // button click event to start quiz
 startButt.addEventListener("click", () => {
-    startQuizz()
+    startQuiz()
 })
 
 
-
-function startQuizz() {
+// function to start the quiz
+function startQuiz() {
     // resets all global variables
     timercount = 100;
     scores = 0;
@@ -75,7 +75,7 @@ function startQuizz() {
     }
 
     getNextQuestion()
-    //timerfunction
+    //timer function
     let activetime = setInterval(() => {
         timer.textContent = timercount
         if (timercount <= 0) {
@@ -88,6 +88,8 @@ function startQuizz() {
     }, 1000)
 
 }
+
+// this function gets the the nex question
 function getNextQuestion() {
     if (questionsArray[q] === undefined) {
         endQuiz()
@@ -110,6 +112,8 @@ function getNextQuestion() {
         button.addEventListener("click", (event) => {
             //check answer
 
+            // this checks if the answer is correct and totals up the scores
+            // this also gives user feedback and sound
             if (Number(event.target.dataset.indexNumber) === questionsArray[q].answer) {
                 scores += 5
                 userFeedback.classList.remove("hide")
@@ -117,7 +121,8 @@ function getNextQuestion() {
                 successSound.currentTime = 0
                 successSound.play()
 
-
+                // this checks if the answer is incorrect and take time odd of timer
+                // this also gives user feedback and sound
             } else {
                 timercount -= 10
                 userFeedback.classList.remove("hide")
@@ -125,7 +130,7 @@ function getNextQuestion() {
                 failSound.currentTime = 0
                 failSound.play()
             }
-
+            // this times how long user feedback stays no the screen
             setTimeout(() => {
                 userFeedback.classList.add("hide")
             }, 1000)
@@ -138,10 +143,11 @@ function getNextQuestion() {
 
     });
 }
-
+// this function ends the quiz and puts scores in local storage
 function endQuiz() {
     questions.className = "hide"
     endScreen.className = "start"
+    timer.className = "hide"
     finalScore.textContent = scores
     submitInitials.addEventListener("click", (event) => {
         let finalScores = JSON.parse(localStorage.getItem("finalScores"))
