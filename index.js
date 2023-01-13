@@ -65,7 +65,7 @@ startButt.addEventListener("click", () => {
 
 function startQuizz() {
     // resets all global variables
-    timercount = 10;
+    timercount = 100;
     scores = 0;
     q = 0;
     startScreen.className = "hide";
@@ -79,10 +79,10 @@ function startQuizz() {
     let activetime = setInterval(() => {
         timer.textContent = timercount
         if (timercount <= 0) {
-            
+
             clearInterval(activetime);
             endQuiz()
-            
+
         }
         timercount = timercount - 1
     }, 1000)
@@ -94,7 +94,7 @@ function getNextQuestion() {
         return
     }
     if (timercount <= 0) {
-        
+
         return
     }
     //reset questions state
@@ -117,7 +117,7 @@ function getNextQuestion() {
                 successSound.currentTime = 0
                 successSound.play()
 
-                
+
             } else {
                 timercount -= 10
                 userFeedback.classList.remove("hide")
@@ -126,7 +126,7 @@ function getNextQuestion() {
                 failSound.play()
             }
 
-            setTimeout(()=>{
+            setTimeout(() => {
                 userFeedback.classList.add("hide")
             }, 1000)
             //next question
