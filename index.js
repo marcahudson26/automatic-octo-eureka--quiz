@@ -46,6 +46,69 @@ let questionsArray = [
             "10",
             "27",
         ]
+    }, {
+        question: "Inside which HTML element do we put the JavaScript?",
+        answer: 0,
+        choises: [
+            "<script>",
+            "<js>",
+            "<scripting>",
+            "<javascript>",
+        ]
+    }, {
+        question: "How do you write 'Hello World' in an alert box??",
+        answer: 3,
+        choises: [
+            "msgBox('Hello World')",
+            "msg('Hello World')",
+            "alertBox('Hello World')",
+            "alert('Hello World')",
+        ]
+    }, {
+        question: "How do you create a function in JavaScript??",
+        answer: 2,
+        choises: [
+            "myfunction() = function",
+            "function myfunction,()",
+            "function myfunction()",
+            "function = myfinction()",
+        ]
+    }, {
+        question: "How do you call a function named 'myFunction'?",
+        answer: 3,
+        choises: [
+            "(myFunction)",
+            "()myFunction",
+            "call myFunction()",
+            "myFunction()",
+        ]
+    }, {
+        question: "How to write an IF statement in JavaScript?",
+        answer: 2,
+        choises: [
+            "if i == 6 then",
+            "if i == 10",
+            "if (i == 5)",
+            "if i = 15 then",
+        ]
+    }, {
+        question: "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
+        answer: 0,
+        choises: [
+            "if(i != 5)",
+            "if i <> 5",
+            "if i == 5 then",
+            "(i != 5 ) if",
+        ]
+    }, {
+        question: "What is the correct way to write a JavaScript array?",
+        answer: 2,
+        choises: [
+            "let colors = 1 = ('red'), 2 = ('green'), 3= ('blue')]",
+            "let colors = ('red'), ('green',) ('blue')]",
+            "let colors = ['red', 'green', 'blue']",
+            "['red', 'green', 'blue'] = let colors ",
+        ]
     },
 ]
 
@@ -115,7 +178,7 @@ function getNextQuestion() {
             // this checks if the answer is correct and totals up the scores
             // this also gives user feedback and sound
             if (Number(event.target.dataset.indexNumber) === questionsArray[q].answer) {
-                scores += 5
+                scores += 10
                 userFeedback.classList.remove("hide")
                 userFeedback.textContent = "correct"
                 successSound.currentTime = 0
