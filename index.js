@@ -113,7 +113,7 @@ let questionsArray = [
 ]
 
 // global variables
-let timercount = 100;
+let timercount = 90;
 let scores = 0;
 let q = 0;
 
@@ -128,7 +128,7 @@ startButt.addEventListener("click", () => {
 // function to start the quiz
 function startQuiz() {
     // resets all global variables
-    timercount = 100;
+    timercount = 90;
     scores = 0;
     q = 0;
     startScreen.className = "hide";
